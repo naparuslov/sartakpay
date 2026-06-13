@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <!-- Отключаем масштабирование самого сайта, чтобы 3D модель крутилась идеально -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Проект «Сартакпай» | Арт-объект</title>
+    
+    <!-- Подключаем библиотеку для 3D -->
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.1.1/model-viewer.min.js"></script>
+
+    <style>
+        /* Базовые настройки и премиальная типографика */
+        :root {
+            --bg-color: #0a0b0e;
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+            --gold-accent: #c5a059;
+            --gold-glow: rgba(197, 160, 89, 0.15);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Заголовочный блок */
+        header {
+            text-align: center;
+            padding: 40px 20px 20px;
+            background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, transparent 100%);
+        }
+
+        .subtitle {
+            color: var(--gold-accent);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        h1 {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 32px;
+            font-weight: normal;
+            margin: 0;
+            letter-spacing: 2px;
+            color: #ffffff;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+
+        /* Контейнер для 3D модели */
+        .model-container {
+            width: 100vw;
+            height: 55vh; /* Модель занимает больше половины экрана */
+            position: relative;
+            background: radial-gradient(circle at center, var(--gold-glow) 0%, transparent 70%);
+        }
+
+        /* Настройки самого 3D вьювера */
+        model-viewer {
+            width: 100%;
+            height: 100%;
+            outline: none;
+            /* Убираем синюю рамку при клике на мобилках */
+            -webkit-tap-highlight-color: transparent; 
+        }
+
+        /* Подсказка для пользователя */
+        .instruction {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--text-muted);
+            font-size: 13px;
+            letter-spacing: 1px;
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 6px 16px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+            animation: pulse 2s infinite;
+        }
+
+        /* Анимация пульсации подсказки */
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { opacity: 0.6; }
+        }
+
+        /* Текстовый блок - Эпичная легенда */
+        .legend-section {
+            padding: 40px 25px;
+            text-align: center;
+            position: relative;
+        }
+
+        .legend-section::before {
+            content: '';
+            width: 40px;
+            height: 2px;
+            background-color: var(--gold-accent);
+            display: block;
+            margin: 0 auto 30px auto;
+        }
+
+        .epic-text {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 18px;
+            line-height: 1.6;
+            color: #ffffff;
+            margin-bottom: 0;
+            font-style: italic;
+        }
+
+        .legend-section::after {
+            content: '';
+            width: 40px;
+            height: 2px;
+            background-color: var(--gold-accent);
+            display: block;
+            margin: 30px auto 0 auto;
+        }
+
+        /* Информационный блок */
+        .info-section {
+            padding: 0 25px 50px;
+            text-align: center;
+        }
+
+        .info-title {
+            color: var(--gold-accent);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
+
+        .info-text {
+            font-size: 14px;
+            line-height: 1.5;
+            color: var(--text-muted);
+        }
+
+        /* Подвал */
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        /* Анимация появления всего контента */
+        .fade-in {
+            animation: fadeIn 1.5s ease-in forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="fade-in">
+        <span class="subtitle">Монументальный арт-объект</span>
+        <h1>САРТАКПАЙ</h1>
+    </header>
+
+    <div class="model-container fade-in" style="animation-delay: 0.3s;">
+        <!-- ЗДЕСЬ ПОДКЛЮЧАЕТСЯ МОДЕЛЬ -->
+        <!-- Строка 131. src="sartakpay.glb" указывает на твой файл. -->
+        <!-- camera-controls разрешает крутить модель. auto-rotate включает медленное вращение по умолчанию. -->
+        <model-viewer 
+            src="sartakpay.glb" 
+            camera-controls 
+            auto-rotate
+            rotation-per-second="30deg"
+            interaction-prompt="none"
+            shadow-intensity="1"
+            environment-image="neutral"
+            exposure="1.2">
+        </model-viewer>
+        
+        <div class="instruction">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M2.13 15.57a9 9 0 1 0 3.84-11.25L2 7M2 7V1h6"/></svg>
+            Вращайте для просмотра
+        </div>
+    </div>
+
+    <div class="legend-section fade-in" style="animation-delay: 0.6s;">
+        <p class="epic-text">
+            «Рукой великана сотворены эти горы, волей Сартакпая рождено Золотое озеро. В тишине Алтын-Кёля дышит великий Дух Алтая. Ступай с чистым сердцем по земле, где камни помнят шаги богов.»
+        </p>
+    </div>
+
+    <div class="info-section fade-in" style="animation-delay: 0.9s;">
+        <div class="info-title">О проекте</div>
+        <div class="info-text">
+            Скульптура высотой более двух метров, выполненная из дикого камня. Создается на безвозмездной основе для благоустройства туристической зоны Иогача и Артыбаша.
+        </div>
+    </div>
+
+    <footer class="fade-in" style="animation-delay: 1.2s;">
+        Скульптор Андрей © 2026<br>
+        Специально для Алтая
+    </footer>
+
+</body>
+</html>
